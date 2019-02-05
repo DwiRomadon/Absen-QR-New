@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.mr_lvs.absenmahasiswa">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".server.AppController"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".users.Login"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Apps"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Mahasiswa.MainMahasiswa"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".dosen.Maindosen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Mahasiswa.IntroAbsen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".dosen.IntroAbsen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".dosen.ListPilihMatakuliah"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".dosen.AbsenDosen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="info.vividcode.android.zxing.CaptureActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.google.zxing.client.android.SCAN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".dosen.InputBad"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Mahasiswa.ListKrsMhs"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Mahasiswa.AbsenMhs"
+            android:screenOrientation="portrait"></activity>
+    </application>
+
+</manifest>
