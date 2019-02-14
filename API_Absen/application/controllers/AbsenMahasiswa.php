@@ -23,11 +23,13 @@ class AbsenMahasiswa extends CI_Controller
 
 	public function index(){
 
+		$thnsem = $this -> Query -> orderByLimit('thnakademik','thnsem','DESC', '1') -> row();
+
 		$kdmk      		= $this->input->post('kdmk');
 
 		$query  = $this -> Query -> getData(array('kdmk'=>$kdmk,
 												  'tglabsen'=>date('Y-m-d')),
-			 									  'absenngajar20181')-> row();
+			 									  'absenngajar'.$thnsem->thnsem)-> row();
 
 		if($query) {
 			$data['status'] = true;
@@ -42,6 +44,10 @@ class AbsenMahasiswa extends CI_Controller
 
 
 	public function getDataKrs(){
+
+
+		$thnsem = $this -> Query -> orderByLimit('thnakademik','thnsem','DESC', '1') -> row();
+
 
 		$npm      			= $this->input->post('npm');
 		$kodemk      		= $this->input->post('kodemk');
@@ -71,6 +77,8 @@ class AbsenMahasiswa extends CI_Controller
 
 	public function getDataKrsKelas(){
 
+		$thnsem = $this -> Query -> orderByLimit('thnakademik','thnsem','DESC', '1') -> row();
+
 		$npm      			= $this->input->post('npm');
 		$jamAwal      		= $this->input->post('jamawal');
 		$jamakhir      		= $this->input->post('jamakhir');
@@ -89,7 +97,7 @@ class AbsenMahasiswa extends CI_Controller
 			$data['data'] 	= $query;
 		}else{
 			$data['status'] = false;
-			$data['msg']	= 'anda Tidak memiliki jam kuliah';
+			$data['msg']	= 'Anda Tidak memiliki jam kuliah';
 		}
 		echo json_encode($data);
 
@@ -97,6 +105,8 @@ class AbsenMahasiswa extends CI_Controller
 
 
 	public function parsingDataRuangMhs(){
+
+		$thnsem = $this -> Query -> orderByLimit('thnakademik','thnsem','DESC', '1') -> row();
 
 		$nidn      	= $this->input->post('npm');
 		$kdHari     = $this->input->post('kodehari');
@@ -124,6 +134,7 @@ class AbsenMahasiswa extends CI_Controller
 
 
 	public function inputAbsenMhs(){
+		$thnsem = $this -> Query -> orderByLimit('thnakademik','thnsem','DESC', '1') -> row();
 		$pertemuangKe     	= $this->input->post('pertemuangKe');
 		$npm				= $this->input->post('npm');
 		$kodeMk				= $this->input->post('kodeMk');
@@ -133,7 +144,7 @@ class AbsenMahasiswa extends CI_Controller
 			'kdmk'=>$kodeMk,
 			'pertemuanke'=>$pertemuangKe,
 			'tglabsen'=>date('Y-m-d')),
-			'absenmhs20181')-> row();
+			'absenmhs'.$thnsem->thnsem)-> row();
 
 		if($cekabsen):
 			$data['status'] = false;
@@ -142,7 +153,7 @@ class AbsenMahasiswa extends CI_Controller
 			$data['status'] = true;
 			$query  = $this -> Query -> getData(array('kdmk'=>$kodeMk,
 				'tglabsen'=>date('Y-m-d')),
-				'absenngajar20181')-> row();
+				'absenngajar'.$thnsem->thnsem)-> row();
 
 			if ($query):
 				$data['status'] = true;
@@ -155,7 +166,8 @@ class AbsenMahasiswa extends CI_Controller
 								'kelas' 	 		=> $Kelas,
 								'jmlhadir' 	  	 	=> '1',
 								'tglinput' 	 		=> date('Y-m-d H:i:s'),
-				),'absenmhs20181');
+								'status'			=> 'H'
+				),'absenmhs'.$thnsem->thnsem);
 				if ($insert):
 					$data['status'] = true;
 					$data['msg']    = "Berhasil Absen";
@@ -170,4 +182,5 @@ class AbsenMahasiswa extends CI_Controller
 		endif;
 		echo json_encode($data);
 	}
+
 }

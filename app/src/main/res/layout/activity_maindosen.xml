@@ -57,6 +57,7 @@
                 android:id="@+id/profil"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
+                android:visibility="gone"
                 android:layout_width="340dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp">

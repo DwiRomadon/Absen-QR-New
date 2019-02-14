@@ -14,7 +14,15 @@ public class DataPilihMatkul {
     String program;
     String operator;
     String kdProgran;
-    String idJadwal, jamAwal, jamAkhir;
+    String idJadwal, jamAwal, jamAkhir, namahari;
+
+    public String getNamahari() {
+        return namahari;
+    }
+
+    public void setNamahari(String namahari) {
+        this.namahari = namahari;
+    }
 
     public String getJamAwal() {
         return jamAwal;

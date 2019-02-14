@@ -46,6 +46,14 @@ public class IntroAbsen extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Sedang dalam pengembangan", Toast.LENGTH_LONG).show();
     }
 
+    @OnClick(R.id.editBad)
+    void bad(){
+        Intent a = new Intent(IntroAbsen.this, ListBad.class);
+        a.putExtra("nidn",nidn);
+        startActivity(a);
+        finish();
+    }
+
     @Override
     public void onBackPressed() {
         Intent a = new Intent(IntroAbsen.this, Maindosen.class);

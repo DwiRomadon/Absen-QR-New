@@ -72,6 +72,7 @@ public class AbsenMhs extends AppCompatActivity {
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
+
         Intent intent = getIntent();
         npm        = intent.getStringExtra("nidn");
         kdmk      = intent.getStringExtra("Kode");
@@ -168,8 +169,6 @@ public class AbsenMhs extends AppCompatActivity {
     }
 
     public void inpurAbsenMhs(final String pertemuanke, final String npm,final String kodeMk,final String kels){
-
-
         String tag_string_req = "req";
         pDialog.setMessage("Mohon tunggu");
         showDialog();
@@ -284,8 +283,16 @@ public class AbsenMhs extends AppCompatActivity {
 
                             }else {
                                 String error_msg = jObj.getString("msg");
-                                Toast.makeText(getApplicationContext(),
-                                        error_msg, Toast.LENGTH_LONG).show();
+                                AlertDialog.Builder builder = new AlertDialog.Builder(AbsenMhs.this);
+                                builder.setMessage(Html.fromHtml("<font color='#2980B9'><b>"+error_msg+"</b></font>"))
+                                        .setCancelable(false)
+                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                Intent a = new Intent(AbsenMhs.this, MainMahasiswa.class);
+                                                startActivity(a);
+                                                finish();
+                                            }
+                                        }).show();
 
                             }
 

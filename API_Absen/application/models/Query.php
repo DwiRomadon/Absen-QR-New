@@ -192,5 +192,12 @@ class Query extends CI_Model{
 		return $this -> db -> get();
 	}
 
+	public function orderByWhere($where,$table,$field,$sort){
+		$this->db->select('*')
+			->from($table)
+			->where($where)
+			->order_by($field,$sort);
+		return $this->db->get();
+	}
 
 }

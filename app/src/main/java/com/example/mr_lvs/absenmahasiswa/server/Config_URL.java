@@ -15,6 +15,10 @@ public class Config_URL
     public static String getBulanThnSem     = base_URL + "/Absendosen/getBlnThnabsen";
     public static String inputAbsenDosen    = base_URL + "/Absendosen/inputAbsenDosen";
     public static String inpuBAD            = base_URL + "/Absendosen/inputBAD";
+    public static String listJadwalNgajar   = base_URL + "/Bad/";
+    public static String listAbsenNgajar    = base_URL + "/Bad/listAbsen";
+    public static String selectBad          = base_URL + "/Bad/selectBad/";
+    public static String editBad            = base_URL + "/Bad/editBAD/";
 
     //API Mahasiswa
     public static String getIdAbsenNgajar   = base_URL + "/AbsenMahasiswa/";

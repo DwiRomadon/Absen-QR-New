@@ -15,34 +15,26 @@
         android:layout_gravity="center"
         android:paddingLeft="16dp"
         android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtKodeMk"
-        android:textStyle="bold"
-        android:text="Kode Matakuliah"/>
-
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:id="@+id/txtNidndosen"
-            android:visibility="gone"
-            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtKodeMk"
+            android:textStyle="bold"
             android:text="Kode Matakuliah"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtNamaMatKul"
-        android:layout_marginTop="2dp"
-        android:text="Kode Matakuliah"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txthari"
+            android:id="@+id/txtNidndosen"
+            android:layout_marginTop="5dp"
+            android:text="Kode Matakuliah"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/mingguKe"
             android:layout_marginTop="2dp"
-            android:text="hari"/>
+            android:text="Kode Matakuliah"/>
     </LinearLayout>
 
 </LinearLayout>

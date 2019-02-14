@@ -22,6 +22,7 @@ import com.example.mr_lvs.absenmahasiswa.R;
 import com.example.mr_lvs.absenmahasiswa.server.AppController;
 import com.example.mr_lvs.absenmahasiswa.server.Config_URL;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,11 +33,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class InputBad extends AppCompatActivity {
+public class EditBad extends AppCompatActivity {
 
     String kodemk;
     String mingguke;
     String blnThn;
+    String nidn;
+    String kelas;
+    String kdHari;
 
     int socketTimeout = 30000;
     RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
@@ -61,35 +65,39 @@ public class InputBad extends AppCompatActivity {
         TextView copy        = (TextView) findViewById(R.id.copy);
         copy.setText("UBL Apps \u00a9 2019 MIS - Universitas Bandar Lampung");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Manajemen Absen");
+        getSupportActionBar().setTitle("Edit Berita Acara");
 
         Intent i    = getIntent();
         kodemk      = i.getStringExtra("kodemk");
         mingguke    = i.getStringExtra("mingguke");
         blnThn      = i.getStringExtra("blntahun");
+        nidn        = i.getStringExtra("nidn");
+        kelas       = i.getStringExtra("kelas");
+        kdHari      = i.getStringExtra("kdhari");
+
+        cekBAD(nidn, kodemk, kdHari, kelas, mingguke);
     }
 
     @OnClick(R.id.btKirim)
-    void kirimBad(){
-        String strBeritaAcara = edBeritaAcara.getText().toString();
+    void kirim(){
+        String edBad = edBeritaAcara.getText().toString();
 
-        if(!strBeritaAcara.isEmpty()){
-            inputBAD(strBeritaAcara, kodemk, mingguke, blnThn);
+        if(!edBad.isEmpty()){
+            editBAD(edBad, kodemk, mingguke, blnThn, nidn, kdHari);
         }else {
-            Toast.makeText(getApplicationContext(), "Data tidak boleh kosong", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Berita acara tidak boleh kosong", Toast.LENGTH_LONG).show();
         }
     }
 
-
-    public void inputBAD(final String beritaacara, final String kdmk,final String mingguke,final String blnthn){
-
+    public void editBAD(final String beritaacara, final String kdmk,final
+                        String mingguke,final String blnthn, String nidns, String kodehari){
 
         String tag_string_req = "req";
         pDialog.setMessage("Mohon tunggu");
         showDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                Config_URL.inpuBAD, new Response.Listener<String>() {
+                Config_URL.editBad, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d(String.valueOf(getApplication()), "Response: " + response.toString());
@@ -101,20 +109,17 @@ public class InputBad extends AppCompatActivity {
                     if(status == true){
 
                         String error_msg = jObj.getString("msg");
-                        /*Toast.makeText(getApplicationContext(),
-                                error_msg, Toast.LENGTH_LONG).show();*/
+                        Toast.makeText(getApplicationContext(),
+                                error_msg, Toast.LENGTH_LONG).show();
 
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(InputBad.this);
-                        builder.setTitle(Html.fromHtml("<font color='#2980B9'><b>"+error_msg+"</b></font>"))
-                                .setCancelable(false)
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        Intent a = new Intent(InputBad.this, Maindosen.class);
-                                        startActivity(a);
-                                        finish();
-                                    }
-                                }).show();
+                        Intent a = new Intent(EditBad.this, ListAbsenNgajar.class);
+                        a.putExtra("nidn", nidn);
+                        a.putExtra("kodemk", kodemk);
+                        a.putExtra("kelas", kelas);
+                        a.putExtra("kodeHari", kdHari);
+                        startActivity(a);
+                        finish();
 
 
                     }else {
@@ -145,7 +150,9 @@ public class InputBad extends AppCompatActivity {
                 params.put("beritaacara", beritaacara);
                 params.put("kdmk", kdmk);
                 params.put("mingguke", mingguke);
-                params.put("blnthn", blnThn);
+                params.put("blnthn", blnthn);
+                params.put("nidn", nidns);
+                params.put("kdhari", kodehari);
                 return params;
             }
         };
@@ -154,6 +161,70 @@ public class InputBad extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(strReq,tag_string_req);
 
 
+    }
+
+    public void cekBAD(String nidn, String nomk, String kodeHari, String Kelas, String mingguke){
+        String tag_string_req = "req";
+        pDialog.setMessage("Mohon tunggu");
+        showDialog();
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                Config_URL.selectBad, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(String.valueOf(getApplication()), "Response: " + response.toString());
+                hideDialog();
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean status = jObj.getBoolean("status");
+
+                    if(status == true){
+
+                        //String error_msg = jObj.getString("msg");
+                        //Toast.makeText(getApplicationContext(),
+                        //        error_msg, Toast.LENGTH_LONG).show();
+                        String getObject = jObj.getString("result");
+
+                        JSONObject jsonObject = new JSONObject(getObject);
+                        String bad = jsonObject.getString("beritaacara");
+                        edBeritaAcara.setText(bad);
+
+                    }else {
+                        String error_msg = jObj.getString("msg");
+                        Toast.makeText(getApplicationContext(),
+                                error_msg, Toast.LENGTH_LONG).show();
+
+                    }
+
+                }catch (JSONException e){
+                    //JSON error
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener(){
+
+            @Override
+            public void onErrorResponse(VolleyError error){
+                Log.e(String.valueOf(getApplication()), "Error : " + error.getMessage());
+                error.printStackTrace();
+                hideDialog();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("nidn", nidn);
+                params.put("nomk", nomk);
+                params.put("kodehari", kodeHari);
+                params.put("kelas", Kelas);
+                params.put("mingguke", mingguke);
+                return params;
+            }
+        };
+
+        strReq.setRetryPolicy(policy);
+        AppController.getInstance().addToRequestQueue(strReq,tag_string_req);
     }
 
     private void showDialog() {
@@ -165,5 +236,4 @@ public class InputBad extends AppCompatActivity {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
-
 }

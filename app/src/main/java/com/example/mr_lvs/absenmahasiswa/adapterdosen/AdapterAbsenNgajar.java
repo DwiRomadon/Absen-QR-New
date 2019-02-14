@@ -9,17 +9,17 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.mr_lvs.absenmahasiswa.R;
-import com.example.mr_lvs.absenmahasiswa.getandset.DataPilihMatkul;
+import com.example.mr_lvs.absenmahasiswa.getandset.DataAbsen;
 
 import java.util.List;
 
-public class AdapterPilihMataKul extends BaseAdapter {
+public class AdapterAbsenNgajar extends BaseAdapter {
 
     private Activity activity;
     private LayoutInflater inflater;
-    private List<DataPilihMatkul> item;
+    private List<DataAbsen> item;
 
-    public AdapterPilihMataKul(Activity activity, List<DataPilihMatkul> item) {
+    public AdapterAbsenNgajar(Activity activity, List<DataAbsen> item) {
         this.activity = activity;
         this.item = item;
     }
@@ -47,18 +47,16 @@ public class AdapterPilihMataKul extends BaseAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.content_pilih_matkul_dosen, null);
+            convertView = inflater.inflate(R.layout.content_absen_ngajar, null);
 
 
-        TextView matakuliah = (TextView) convertView.findViewById(R.id.txtNamaMatKul);
-        TextView nidn = (TextView) convertView.findViewById(R.id.txtNidndosen);
-        TextView nomk = (TextView) convertView.findViewById(R.id.txtKodeMk);
-        TextView hari = (TextView) convertView.findViewById(R.id.txthari);
+        TextView kodemk         = (TextView) convertView.findViewById(R.id.txtKodeMk);
+        TextView nidn           = (TextView) convertView.findViewById(R.id.txtNidndosen);
+        TextView pertemuanke    = (TextView) convertView.findViewById(R.id.mingguKe);
 
-        matakuliah.setText(item.get(position).getMatakuliah());
+        kodemk.setText(item.get(position).getKodemk());
         nidn.setText(item.get(position).getNidn());
-        nomk.setText(item.get(position).getNomk());
-        hari.setText(item.get(position).getNamahari());
+        pertemuanke.setText("Pertemuan : " + item.get(position).getMingguke());
 
         return convertView;
     }

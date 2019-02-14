@@ -49,8 +49,10 @@
             android:name="info.vividcode.android.zxing.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
+            android:stateNotNeeded="true"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden">
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:replace="android:screenOrientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -65,10 +67,19 @@
         <activity
             android:name=".dosen.InputBad"
             android:screenOrientation="portrait" />
-        <activity android:name=".Mahasiswa.ListKrsMhs"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Mahasiswa.AbsenMhs"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".Mahasiswa.ListKrsMhs"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Mahasiswa.AbsenMhs"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".dosen.EditBad"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".dosen.ListBad"
+            android:screenOrientation="portrait" />
+        <activity android:name=".dosen.ListAbsenNgajar"></activity>
     </application>
 
 </manifest>

@@ -9,6 +9,7 @@
 class Absendosen extends CI_Controller
 {
 
+	//0012096409
 	public function __construct()
 	{
 		parent::__construct();
@@ -23,11 +24,13 @@ class Absendosen extends CI_Controller
 
 
 	public function index(){
+		$thnsem = $this -> Query -> orderByLimit('thnakademik','thnsem','DESC', '1') -> row();
 		$nidn      	= $this->input->post('nidn');
 		$nomk      	= $this->input->post('nomk');
 		$jamawal	= $this->input->post('jamawal');
 		$jamakhir	= $this->input->post('jamakhir');
 		$kelas		= $this->input->post('kelas');
+
 
 		$query  = $this -> Query -> getData(array('NIDN'=>$nidn,
 			'NoMk'=>$nomk,
@@ -48,6 +51,7 @@ class Absendosen extends CI_Controller
 	}
 
 	public function getKodeKelas(){
+		$thnsem 	= $this -> Query -> orderByLimit('thnakademik','thnsem','DESC', '1') -> row();
 		$nidn      	= $this->input->post('nidn');
 		$kdHari     = $this->input->post('kodehari');
 		$jamawal	= $this->input->post('jamawal');
@@ -57,7 +61,7 @@ class Absendosen extends CI_Controller
 			'Kd_hari'=>$kdHari,
 			'JamAwal <='=>$jamawal,
 			'JamAkhir >='=>$jamakhir),
-			'jadwaldossplit20181')-> result();
+			'vjadwaldossplit20181')-> result();
 
 		if($query) {
 			$data['status'] = true;
@@ -72,7 +76,7 @@ class Absendosen extends CI_Controller
 
 
 	public function parsingDataRuang(){
-
+		$thnsem = $this -> Query -> orderByLimit('thnakademik','thnsem','DESC', '1') -> row();
 		$nidn      	= $this->input->post('nidn');
 		$kdHari     = $this->input->post('kodehari');
 		$jamawal	= $this->input->post('jamawal');
@@ -84,7 +88,7 @@ class Absendosen extends CI_Controller
 			'JamAwal <='=>$jamawal,
 			'JamAkhir >='=>$jamakhir,
 			'Kd_hari'=>$kdHari),
-			'jadwaldossplit20181')-> row();
+			'vjadwaldossplit20181')-> row();
 
 		if($query) {
 			$data['status'] = true;
@@ -98,6 +102,7 @@ class Absendosen extends CI_Controller
 	}
 
 	public function getBlnThnabsen(){
+		$thnsem = $this -> Query -> orderByLimit('thnakademik','thnsem','DESC', '1') -> row();
 		$tglAwal      	= $this->input->post('tglAwal');
 		$tglAkhir      	= $this->input->post('tglAkhir');
 
@@ -120,7 +125,7 @@ class Absendosen extends CI_Controller
 
 
 	public function inputAbsenDosen(){
-
+		$thnsem = $this -> Query -> orderByLimit('thnakademik','thnsem','DESC', '1') -> row();
 		$kdhari         =  $this -> input -> post('kodehari');
 		$jamAwal        =  $this -> input -> post('jamawal');
 		$jamakhir       =  $this -> input -> post('jamakhir');
@@ -142,7 +147,7 @@ class Absendosen extends CI_Controller
 													'kdmk'=>$kdmk,
 													'kdhari'=>$kdhari,
 													'tglabsen'=>date('Y-m-d')),
-									'absenngajar20181')-> row();
+									'absenngajar'.$thnsem->thnsem)-> row();
 
 
 		if($cekabsen):
@@ -171,7 +176,7 @@ class Absendosen extends CI_Controller
 				'idjadwal' 	  	 	=> $idjadwal,
 				'tglinput'			=> date('Y-m-d H:i:s'),
 				'programby'			=> 'qrcode'
-			),'absenngajar20181');
+			),'absenngajar'.$thnsem->thnsem);
 
 			if ($insert):
 				$data['status'] = true;
@@ -186,6 +191,7 @@ class Absendosen extends CI_Controller
 
 
 	public function inputBAD(){
+		$thnsem = $this -> Query -> orderByLimit('thnakademik','thnsem','DESC', '1') -> row();
 		$beritaAcara	=  $this -> input -> post('beritaacara');
 		$kdmk       	=  $this -> input -> post('kdmk');
 		$mingguKe       =  $this -> input -> post('mingguke');
@@ -193,7 +199,7 @@ class Absendosen extends CI_Controller
 
 		$update = $this -> Query -> updateData(array('kdmk'=>$kdmk, 'mingguke'=>$mingguKe,'blnthnabsen'=>$blnThnabsn),
 											   array('beritaacara'=>$beritaAcara),
-											   'absenngajar20181');
+											   'absenngajar'.$thnsem->thnsem);
 		if ($update):
 			$data['status'] = true;
 			$data['msg']    = "Berhasil input BAD";
@@ -203,6 +209,4 @@ class Absendosen extends CI_Controller
 		endif;
 		echo json_encode($data);
 	}
-
-
 }
