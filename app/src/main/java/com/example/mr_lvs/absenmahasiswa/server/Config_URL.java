@@ -4,7 +4,7 @@ package com.example.mr_lvs.absenmahasiswa.server;
 
 public class Config_URL
 {
-    public static String base_URL           = "http://192.168.1.120/API_Absen";
+    public static String base_URL           = "http://103.230.48.154/API_Absen";
     public static String login              = base_URL + "/User";
     public static String cekVersion         =  base_URL + "/User/cekVersionApp";
 

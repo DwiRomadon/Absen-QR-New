@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.mr_lvs.absenmahasiswa.Mahasiswa.MainMahasiswa;
 import com.example.mr_lvs.absenmahasiswa.R;
+import com.example.mr_lvs.absenmahasiswa.WebViews;
 import com.example.mr_lvs.absenmahasiswa.server.AppController;
 import com.example.mr_lvs.absenmahasiswa.server.Config_URL;
 import com.example.mr_lvs.absenmahasiswa.session.SessionManager;
@@ -79,9 +80,12 @@ public class Maindosen extends AppCompatActivity {
         finish();
     }
 
-    @OnClick(R.id.profil)
+    @OnClick(R.id.ublapps)
     void profil(){
-        Toast.makeText(getApplicationContext(), "Ini Profil", Toast.LENGTH_LONG).show();
+        Intent a = new Intent(Maindosen.this, WebViews.class);
+        a.putExtra("web", "http://ublapps.ubl.ac.id/lecture");
+        startActivity(a);
+        finish();
     }
 
     @OnClick(R.id.login_card)
@@ -108,6 +112,8 @@ public class Maindosen extends AppCompatActivity {
             nama  = prefs.getString("nama","");
             email = prefs.getString("email", "");
             level = prefs.getString("level", "");
+
+            //Toast.makeText(getApplicationContext(), nidns, Toast.LENGTH_LONG).show();
         }
     }
 

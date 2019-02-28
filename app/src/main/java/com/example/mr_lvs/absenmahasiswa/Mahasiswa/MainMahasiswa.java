@@ -23,6 +23,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.mr_lvs.absenmahasiswa.R;
+import com.example.mr_lvs.absenmahasiswa.WebViews2;
 import com.example.mr_lvs.absenmahasiswa.dosen.Maindosen;
 import com.example.mr_lvs.absenmahasiswa.server.AppController;
 import com.example.mr_lvs.absenmahasiswa.server.Config_URL;
@@ -81,9 +82,12 @@ public class MainMahasiswa extends AppCompatActivity {
         finish();
     }
 
-    @OnClick(R.id.profil)
+    @OnClick(R.id.ublapps)
     void profil(){
-        Toast.makeText(getApplicationContext(), "Ini Profil", Toast.LENGTH_LONG).show();
+        Intent a = new Intent(MainMahasiswa.this, WebViews2.class);
+        a.putExtra("web", "http://ublapps.ubl.ac.id/student/index.php/admin/login");
+        startActivity(a);
+        finish();
     }
 
     @OnClick(R.id.login_card)

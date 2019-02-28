@@ -9,9 +9,9 @@
         android:name=".server.AppController"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon_qr"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/icon_qr"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
@@ -79,7 +79,10 @@
         <activity
             android:name=".dosen.ListBad"
             android:screenOrientation="portrait" />
-        <activity android:name=".dosen.ListAbsenNgajar"></activity>
+        <activity android:name=".dosen.ListAbsenNgajar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".WebViews"></activity>
+        <activity android:name=".WebViews2"></activity>
     </application>
 
 </manifest>
